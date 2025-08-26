@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Analyse en cours...</title>
+  <style>
+    body {
+      background: black;
+      color: #00ff00;
+      font-family: monospace;
+      padding: 20px;
+      overflow: hidden;
+    }
+    #output {
+      white-space: pre-line;
+      font-size: 18px;
+      animation: blink 1s infinite alternate;
+    }
+    @keyframes blink {
+      from { opacity: 1; }
+      to { opacity: 0.7; }
+    }
+    #screamer {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* au-dessus du texte */
+    }
+    #screamer img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div id="output"></div>
+  <div id="screamer">
+    <img src="https://i.imgur.com/jgZ4Z8h.jpg" alt="Screamer">
+    <audio id="scream-sound" src="https://www.myinstants.com/media/sounds/movie_1.mp3"></audio>
+  </div>
+  <script>
+    const infos = [
+      "Connexion au serveur distant...",
+      "Analyse du compte utilisateur...",
+      "Adresse email associée : " + "user" + Math.floor(Math.random()*999) + "@example.com",
+      "Adresse IP détectée : " + (Math.floor(Math.random()*255) + "." + Math.floor(Math.random()*255) + "." + Math.floor(Math.random()*255) + "." + Math.floor(Math.random()*255)),
+      "Localisation approximative : France, Lyon",
+      "Système d'exploitation : " + navigator.platform,
+      "Navigateur : " + navigator.userAgent,
+      "Nom de l'ordinateur : " + "PC-" + Math.floor(Math.random()*9999),
+      "Réseaux détectés : WiFi-Home, WiFi-Guest",
+      "Récupération des fichiers sensibles...",
+      "Analyse des programmes installés : Chrome, Discord, VSCode",
+      "Accès autorisé ✅",
+      "Téléchargement en cours...",
+      "⚠️ Attention : Données personnelles compromises ⚠️"
+    ];
+
+    const output = document.getElementById("output");
+    let i = 0;
+
+    function typeLine() {
+      if (i < infos.length) {
+        output.innerHTML += infos[i] + "\n";
+        i++;
+        setTimeout(typeLine, 600); // plus rapide
+      } else {
+        setTimeout(showScreamer, 1000);
+      }
+    }
+
+    function showScreamer() {
+      const screamer = document.getElementById("screamer");
+      screamer.style.display = "flex";
+      const sound = document.getElementById("scream-sound");
+      sound.play();
+      // les infos restent visibles derrière le screamer
+    }
+
+    typeLine();
+  </script>
+</body>
+</html>
